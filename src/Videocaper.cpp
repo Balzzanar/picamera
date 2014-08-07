@@ -18,10 +18,9 @@ const std::string Videocaper::currentDateTime() {
 std::string Videocaper::genname(){
     std::string format= ".h264";
     std::string formatConv= ".mp4";
-    mName = "vid_"+currentDateTime() 
+    mName = "vid_"+currentDateTime(); 
     mNameConv = mName+formatConv;
     mName = mName+format;
-    return mName;
 }
 
 /** Converts the newly recorded video from .h264 to .mp4 */
@@ -29,7 +28,7 @@ void Videocaper::convert(){
     //... shall start the video convertion
     // "MP4Box -add filename.h264 filename.mp4"
     std::string cmd = "MP4Box -add";
-    cmd=cmd+" "+mName+" "mNameConv;
+    cmd=cmd+" "+mPath+mName+" "+mPath+mNameConv;
     std::cout << "Command: " << cmd << std::endl;
 }
 
@@ -41,9 +40,9 @@ Videocaper::Videocaper(std::string path, std::string length){
 
 /** Starts the recording with the given length, and the given path, waits for it to finnish */
 void Videocaper::record(){
-    mPath=mPath+genname();
+    genname();
     std::string cmd = "raspvid";
-    cmd=cmd+" -o "+mPath;
+    cmd=cmd+" -o "+mPath+mName;
     cmd=cmd+" -t "+mLength+"000";
     std::cout << "Command: " << cmd << std::endl;
     convert();
