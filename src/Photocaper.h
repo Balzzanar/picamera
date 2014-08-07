@@ -1,4 +1,7 @@
 /**
+ * Photocaper
+ * 
+ * Class for taking a photo on the raspberry pi.
  * 
  * 
  */

@@ -3,14 +3,13 @@
  * 
  */
 #include <iostream>
-#include "example.h" 
+#include "Videocaper.h" 
 #include "Photocaper.h" 
 
 struct conf {
-  int action;
-  std::string filepath;
+  int action; // 0 == image, 1 == video
+  std::string length;
   std::string path;
-  std::string output;
 } mConf;
 
 /**
@@ -23,28 +22,30 @@ bool getArgs(int argc, char* argv[]){
 	for (int i = 1; i < argc; i++) {
 		if (i + 1 != argc) {	// Check that we haven't finished parsing already
 			std::string arg = argv[i];
-                if (arg == "-f") {
-                    // We know the next argument *should* be the filename:
+                if (arg == "-p") {
 					i++;
-					myFile = argv[i];
-					mConf.filepath = myFile;
+					mConf.path = argv[i];
 					
-                } else if (arg == "-p") {
+                } else if (arg == "-l") {
                     i++;
-					myPath = argv[i];
-					mConf.path = myPath;
+					mConf.length = argv[i];
 					
-                } else if (arg == "-o") {
+                } else if (arg == "-a") {
                     i++;
-					myOutPath = argv[i];
-					mConf.output = myOutPath;
-					
+                    std::string action = argv[i];
+                    if (action == "img"){
+                        mConf.action = 0;
+                    } else if (action == "vid"){
+                        mConf.action = 1;
+                    } else {
+                        mConf.action = -1;  // No action found :(
+                    }
                 } else {
 					std::cout << "FAILED ARG: " << arg << std::endl;
 			}
 		}
 	}
-	if (mConf.filepath != "" && mConf.path != "" && mConf.output != ""){
+	if (mConf.action > -1 && mConf.path != "" && mConf.length != ""){
 	    return true;    
 	}
     return false;
@@ -53,22 +54,22 @@ bool getArgs(int argc, char* argv[]){
 
 int main(int argc, char* argv[])
 {
-    Photocaper photocaper("pathh");
-    photocaper.take();
-    return 0;
-    
-    
-	int ACTION = 0;
-	example a; // no longer produces an error, because MyClass is defined
-	std::cout << "And we are all done!" << std::endl;
-	a.foo();
-	
-	std::cout << "We are getting starting with id: " << a.getID() << std::endl;
-
 	if (! getArgs(argc, argv)){
-	    std::cout << "Failed at getting the args";
+	    std::cout << "All needed arguments was not supplied" << std::endl;
+	    return -1;
 	}
-	std::cout << "Collected the following args: " << mConf.filepath << ", " << mConf.path << ", " << mConf.output << std::endl;
+//	std::cout << "Collected the following args: " << mConf.action << ", " << mConf.path << ", " << mConf.length << std::endl;
+
+
+    if (mConf.action == 0){
+        /* Take a photo */
+        Photocaper photocaper(mConf.path);
+        photocaper.take();
+    } else {
+        /* Record video */
+        Videocaper videocaper(mConf.path, mConf.length);
+        videocaper.record();
+    }
 
 
 	std::cin.get(); // Just for bug windows!

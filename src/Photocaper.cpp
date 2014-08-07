@@ -17,7 +17,7 @@ const std::string Photocaper::currentDateTime() {
 /** Generates a name for the image */
 std::string Photocaper::genname(){
     std::string format= ".jpg";
-    return currentDateTime()+format;
+    return "img_"+currentDateTime()+format;
 }
 
 /** Constructor */
@@ -27,6 +27,9 @@ Photocaper::Photocaper(std::string path){
 
 /** Takes the actual photo and places it in the propper file path */
 void Photocaper::take(){
-    std::cout << "mPath= " << mPath << "genname= " << genname() << std::endl;
+    mPath=mPath+genname();
+    std::string cmd = "raspstill";
+    cmd=cmd+" -o "+mPath;
+    std::cout << "Command: " << cmd << std::endl;
 }
 
