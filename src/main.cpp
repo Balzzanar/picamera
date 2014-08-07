@@ -1,5 +1,10 @@
+/**
+ * 
+ * 
+ */
 #include <iostream>
-#include "example.h"  // defines MyClass
+#include "example.h" 
+#include "Photocaper.h" 
 
 struct conf {
   int action;
@@ -48,6 +53,11 @@ bool getArgs(int argc, char* argv[]){
 
 int main(int argc, char* argv[])
 {
+    Photocaper photocaper("pathh");
+    photocaper.take();
+    return 0;
+    
+    
 	int ACTION = 0;
 	example a; // no longer produces an error, because MyClass is defined
 	std::cout << "And we are all done!" << std::endl;
@@ -59,7 +69,8 @@ int main(int argc, char* argv[])
 	    std::cout << "Failed at getting the args";
 	}
 	std::cout << "Collected the following args: " << mConf.filepath << ", " << mConf.path << ", " << mConf.output << std::endl;
-	
+
+
 	std::cin.get(); // Just for bug windows!
 	return 0;
 }

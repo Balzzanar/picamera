@@ -1,7 +1,7 @@
 all: build run
 
 build:
-	g++ src/main.cpp src/example.cpp -o mynewtest
+	g++ src/main.cpp src/example.cpp src/Photocaper.cpp -o mynewtest
 
 run:
 	./mynewtest
