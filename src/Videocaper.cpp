@@ -15,7 +15,7 @@ const std::string Videocaper::currentDateTime() {
 }
 
 /** Generates a name for the video */
-std::string Videocaper::genname(){
+void Videocaper::genname(){
     std::string format= ".h264";
     std::string formatConv= ".mp4";
     mName = "vid_"+currentDateTime(); 
@@ -25,7 +25,6 @@ std::string Videocaper::genname(){
 
 /** Converts the newly recorded video from .h264 to .mp4 */
 void Videocaper::convert(){
-    //... shall start the video convertion
     // "MP4Box -add filename.h264 filename.mp4"
     std::string cmd = "MP4Box -add";
     cmd=cmd+" "+mPath+mName+" "+mPath+mNameConv;

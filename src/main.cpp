@@ -72,6 +72,6 @@ int main(int argc, char* argv[])
     }
 
 
-	std::cin.get(); // Just for bug windows!
+	//std::cin.get(); // Just for bug windows!
 	return 0;
 }

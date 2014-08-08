@@ -22,7 +22,7 @@ private:
     std::string mLength;
     void convert();
     const std::string currentDateTime();
-    std::string genname();
+    void genname();
 public:
 	Videocaper(std::string path, std::string length);
 	void record();
