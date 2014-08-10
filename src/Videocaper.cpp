@@ -27,7 +27,7 @@ void Videocaper::genname(){
 void Videocaper::convert(){
     // "MP4Box -add filename.h264 filename.mp4"
     std::string cmd = "MP4Box -add";
-    cmd=cmd+" "+mPath+mName+" "+mPath+mNameConv;
+    cmd=cmd+" "+mPath+mName+" "+mPath+mNameConv+"&";
     std::cout << "Command: " << cmd << std::endl;
 }
 
@@ -38,12 +38,15 @@ Videocaper::Videocaper(std::string path, std::string length){
 }
 
 /** Starts the recording with the given length, and the given path, waits for it to finnish */
-void Videocaper::record(){
-    genname();
-    std::string cmd = "raspvid";
-    cmd=cmd+" -o "+mPath+mName;
-    cmd=cmd+" -t "+mLength+"000";
-    std::cout << "Command: " << cmd << std::endl;
-    convert();
+void Videocaper::record(bool loop, int looplength){
+    do {
+        genname();
+        std::string cmd = "raspvid";
+        cmd=cmd+" -o "+mPath+mName;
+        cmd=cmd+" -t "+mLength+"000";
+        std::cout << "Command: " << cmd << std::endl;
+        convert();
+        sleep(looplength);
+    } while (loop);
 }
 

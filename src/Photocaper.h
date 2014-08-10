@@ -17,7 +17,7 @@ private:
     std::string genname();
 public:
 	Photocaper(std::string path);
-	void take();
+	void take(bool loop, int looplength);
 };
 
 #endif /* PHOTO_H_ */

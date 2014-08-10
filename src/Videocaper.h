@@ -25,7 +25,7 @@ private:
     void genname();
 public:
 	Videocaper(std::string path, std::string length);
-	void record();
+	void record(bool loop, int looplength);
 };
 
 #endif /* VIDEO_H_ */

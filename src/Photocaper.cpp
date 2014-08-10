@@ -26,10 +26,13 @@ Photocaper::Photocaper(std::string path){
 }
 
 /** Takes the actual photo and places it in the propper file path */
-void Photocaper::take(){
-    mPath=mPath+genname();
-    std::string cmd = "raspstill";
-    cmd=cmd+" -o "+mPath;
-    std::cout << "Command: " << cmd << std::endl;
+void Photocaper::take(bool loop, int looplength){
+    do {
+        std::string path = mPath+genname();
+        std::string cmd = "raspstill";
+        cmd=cmd+" -o "+path;
+        std::cout << "Command: " << cmd << std::endl;
+        sleep(looplength);
+    } while (loop);
 }
 
